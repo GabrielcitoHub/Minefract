@@ -14,6 +14,22 @@ function self:keypressed(key)
     self.stateManager:keypressed(key)
 end
 
+function self:mousepressed(x, y, button, istouch, presses)
+    self.stateManager:mousepressed(x, y, button, istouch, presses)
+end
+
+function self:mousemoved(x, y, dx, dy, istouch)
+    self.stateManager:mousemoved(x, y, dx, dy, istouch)
+end
+
+function self:wheelmoved(x, y)
+    self.stateManager:wheelmoved(x, y)
+end
+
+function self:mousereleased(x, y, button, istouch, presses)
+    self.stateManager:mousereleased(x, y, button, istouch, presses)
+end
+
 function self:update(dt)
     self.stateManager:update(dt)
     self.sprite:update(dt)
@@ -24,6 +40,7 @@ function self:draw()
     self.sprite:draw()
 end
 
+-- Utils
 function self:getWidth()
     return love.graphics:getWidth()
 end

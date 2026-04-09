@@ -8,6 +8,7 @@ local self = {
     colors = colors or {
         low = {1,0,0}, -- Rojo
         middle = {1,1,0}, -- Amarillo
+        close = {1,0.6,0}, -- Naranja
         high = {0,1,0}, -- Verde
     },
     limit = 100,
@@ -16,10 +17,12 @@ local self = {
 self.color = color or self.colors.low
 
 function self:update(dt)
-    if self.score < 25% self.limit then
+    if self.score < 40% self.limit then
         self.color = self.colors.high
-    elseif self.score < 50% self.limit then
+    elseif self.score < 60% self.limit then
         self.color = self.colors.middle
+    elseif self.score < 80% self.limit then
+        self.color = self.colors.close
     else
         self.color = self.colors.low
     end

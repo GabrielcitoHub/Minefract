@@ -1,7 +1,7 @@
 local stateManager = {}
 stateManager.state = {}
 stateManager.stateFunctions = {}
-stateManager.supportedFunctions = {"load","draw","update","keypressed"}
+stateManager.supportedFunctions = {"load", "keypressed", "mousepressed", "mousemoved", "wheelmoved", "mousereleased", "update", "draw"}
 stateManager.lastState = {}
 
 function stateManager:loadStateLocal(state, extra)
@@ -50,6 +50,36 @@ function stateManager:reloadState(stateName)
     self:loadStateLocal(stateName or self.state.name)
 end
 
+function stateManager:keypressed(key)
+    if not self.stateFunctions.keypressed then return end
+    self.state:keypressed(key)
+end
+
+function stateManager:mousepressed(x, y, button, istouch, presses)
+    if not self.stateFunctions.mousepressed then return end
+    self.state:mousepressed(x, y, button, istouch, presses)
+end
+
+function stateManager:mousemoved(x, y, dx, dy, istouch)
+    if not self.stateFunctions.mousemoved then return end
+    self.state:mousemoved(x, y, dx, dy, istouch)
+end
+
+function stateManager:wheelmoved(x, y)
+    if not self.stateFunctions.wheelmoved then return end
+    self.state:wheelmoved(x, y)
+end
+
+function stateManager:mousereleased(x, y, button, istouch, presses)
+    if not self.stateFunctions.mousereleased then return end
+    self.state:mousereleased(x, y, button, istouch, presses)
+end
+
+function stateManager:update(dt)
+    if not self.stateFunctions.update then return end
+    self.state:update(dt)
+end
+
 function stateManager:draw()
     if Game.debug then
         if self.state.id then
@@ -58,16 +88,6 @@ function stateManager:draw()
     end
     if not self.stateFunctions.draw then return end
     self.state:draw()
-end
-
-function stateManager:update(dt)
-    if not self.stateFunctions.update then return end
-    self.state:update(dt)
-end
-
-function stateManager:keypressed(key)
-    if not self.stateFunctions.keypressed then return end
-    self.state:keypressed(key)
 end
 
 return stateManager

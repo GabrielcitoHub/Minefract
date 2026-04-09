@@ -2,6 +2,7 @@ local spritemanager = {}
 spritemanager.sprites = {}
 spritemanager.cache = {}
 spritemanager.placeholderImage = love.graphics.newImage("assets/images/placeholders/PLACEHOLDER.png")
+spritemanager.placeholderImage:setFilter("nearest", "nearest")
 
 ---@diagnostic disable-next-line: different-requires
 local json = _G.json or require "libs/json"
@@ -485,14 +486,24 @@ function spritemanager:moveObject(tag, xspeed, yspeed)
     spr.y = spr.y + yspeed
 end
 
+function spritemanager:getScaledSize(spr)
+    if type(spr) == "string" then
+        self:tagToSprite(spr)
+    end
+
+    local scaledWidth = spr["image"]:getWidth() * spr.sx
+    local scaledHeight = spr["image"]:getHeight() * spr.sy
+    return scaledWidth, scaledHeight
+end
+
 -- first argument must be the sprite tag, second argument can either be "x", "y" or "xy", 
 function spritemanager:centerObject(tag, centertype)
     local spr = self:tagToSprite(tag)
     centertype = centertype or "xy"
     centertype = string.lower(centertype)
-    
-    local xcenter = (Game:getWidth() / 2) - (spr["image"]:getWidth() / 2)
-    local ycenter = (Game:getHeight() / 2) - (spr["image"]:getHeight() / 2)
+    local sx, sy = self:getScaledSize(spr)
+    local xcenter = (Game:getWidth() / 2) - (sx / 2)
+    local ycenter = (Game:getHeight() / 2) - (sy / 2)
 
     if centertype == "x" then
         spr.x = xcenter
