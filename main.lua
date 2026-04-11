@@ -1,7 +1,7 @@
 Game = require "game"
 
-function love.load()
-    Game:load()
+function love.load(args)
+    Game:load(args)
     Game.stateManager:loadState("menu")
 end
 

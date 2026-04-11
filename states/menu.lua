@@ -1,8 +1,12 @@
-local self = {}
+local self = {
+    flag = require("modules.flag"),
+    gotoState = "gameplay",
+}
 
 function self:load()
-    self.font = love.graphics.newFont(32)
-    love.graphics.setFont(self.font)
+    self.flag:load(self)
+
+    love.graphics.setFont(Game.font)
     -- self.menu = Game.sprite:makeLuaSprite("menu", "menu")
     self.logo = Game.sprite:makeLuaSprite("logo", "logos/gamelogo")
 
@@ -12,15 +16,24 @@ function self:load()
     Game.sprite:moveObject(self.logo, nil, -300)
 end
 
-function self:update(dt)
+function self:onContinue()
+    Game.stateManager:loadState(self.gotoState)
+end
+
+function self:mousepressed(x, y, button)
+    self.flag:mousepressed(x, y, button)
+
+    if not self.flag:isWithinSprite(x, y) then
+        self:onContinue()
+    end
 end
 
 function self:draw()
-    love.graphics.printf("Press any key to continue!", 0, Game:getHeight() - 200, Game:getWidth(), "center")
+    love.graphics.printf(Language:get("presstoplay"), 0, Game:getHeight() - 200, Game:getWidth(), "center")
 end
 
 function self:keypressed(key)
-    Game.stateManager:loadState("gameplay")
+    self:onContinue()
 end
 
 return self

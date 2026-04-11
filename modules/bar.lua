@@ -3,7 +3,7 @@ local self = {
     x = x or 200,
     y = y or 300,
     width = width or 5,
-    height = height or 8,
+    height = height or 30,
     score = score or 0,
     colors = colors or {
         low = {1,0,0}, -- Rojo
@@ -17,11 +17,11 @@ local self = {
 self.color = color or self.colors.low
 
 function self:update(dt)
-    if self.score < 40% self.limit then
+    if self.score < 60% self.limit then
         self.color = self.colors.high
-    elseif self.score < 60% self.limit then
+    elseif self.score < 70% self.limit then
         self.color = self.colors.middle
-    elseif self.score < 80% self.limit then
+    elseif self.score < 85% self.limit then
         self.color = self.colors.close
     else
         self.color = self.colors.low

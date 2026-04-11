@@ -488,7 +488,7 @@ end
 
 function spritemanager:getScaledSize(spr)
     if type(spr) == "string" then
-        self:tagToSprite(spr)
+        spr = self:tagToSprite(spr)
     end
 
     local scaledWidth = spr["image"]:getWidth() * spr.sx

@@ -1,9 +1,16 @@
 local self = {}
 
+self.font = love.graphics.newFont(32)
 self.stateManager = require "libs.stateManager"
 self.sprite = require "libs.sprite"
+self.slab = require "libs.slab.API"
 
-function self:load()
+Language = require "modules.language"
+
+function self:load(args)
+    Language:load()
+    self.slab.Initialize(args)
+
     local sprite = self.sprite
     function self.stateManager:load()
         sprite:clearSprites()
@@ -31,13 +38,15 @@ function self:mousereleased(x, y, button, istouch, presses)
 end
 
 function self:update(dt)
+    self.slab.Update(dt)
     self.stateManager:update(dt)
     self.sprite:update(dt)
 end
 
 function self:draw()
     self.stateManager:draw()
-    self.sprite:draw()
+    self.sprite:draw(nil, true)
+    self.slab.Draw()
 end
 
 -- Utils
