@@ -4,6 +4,7 @@ self.font = love.graphics.newFont(32)
 self.stateManager = require "libs.stateManager"
 self.sprite = require "libs.sprite"
 self.slab = require "libs.slab.API"
+self.wave = require "libs.wave"
 
 Language = require "modules.language"
 

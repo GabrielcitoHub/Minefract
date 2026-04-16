@@ -1,6 +1,11 @@
 return function()
 local self = {}
 
+function self:load(state, treasure)
+    self.state = state
+    self.treasure = treasure or self.state.treasures:getRandom()
+end
+
 function self:update(Slab, dt, windows)
     Slab.BeginWindow('treasure' .. windows, {
         Title = Language:get("treasureFound"),
@@ -17,7 +22,7 @@ function self:update(Slab, dt, windows)
 
     local imageScale = 0.23
     Slab.Image('treasureImage', {
-        Path = "assets/images/treasures/uiiai_cat.png",
+        Image = self.treasure.image,
         ScaleX = imageScale * 1.3,
         ScaleY = imageScale * 1.1,
     })
@@ -39,14 +44,15 @@ function self:update(Slab, dt, windows)
     end
 
     if self.DonateButtonPressed then
-        Game.stateManager.state:addScore(10)
+        Game.stateManager.state:addScore(self.treasure.donateScore or 10)
         self:remove()
     end
         
     if self.SellButtonPressed then
         -- These lines below is bad practice but we don't have time so it'll have to work
-        Game.stateManager.state:addMoney(100)
-        Game.stateManager.state:addScore(-10)
+        Game.stateManager.state:addMoney(self.treasure.price or 100)
+        print(self.treasure.price)
+        Game.stateManager.state:addScore(self.treasure.sellScore or -10)
         self:remove()
     end
 

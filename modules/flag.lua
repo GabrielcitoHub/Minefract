@@ -62,7 +62,7 @@ function self:onClick(x, y, button)
     local flag = self.flags[self.flagIndex]
     Game.sprite:playFrame(self.tag, flag)
     self:updatePosition()
-    Language:load(self.languagesPath .. "/" .. flag)
+    Language:load(string.gsub(self.languagesPath, "/", ".") .. "." .. flag)
 
     if self.clicks == 1 then
         -- It doesn't work the first time for some reason

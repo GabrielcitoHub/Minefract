@@ -3,9 +3,11 @@ local self = {
     pauseButton = require("modules.pauseButton"),
     peopleBar = require("modules.bar")(),
     bossBar = require("modules.bar")(),
+    treasures = require("modules.treasures"),
     bars = {},
     money = 0,
     reputation = 0,
+    -- music = love.audio.newSource("assets/music/main_theme.mp3", "static"),
 }
 
 self.windows = {
@@ -15,6 +17,12 @@ self.windows = {
 self.activeWindows = {}
 
 function self:load()
+    if self.music then
+        self.music:setLooping(true)
+        self.music:play()
+    end
+
+    self.windows.pause:load(self)
     self.layer:load(self)
     self.pauseButton:load(self)
 
@@ -44,6 +52,7 @@ function self:load()
     Game.sprite:makeLuaSprite("cameraBorder", "ui/cameraBorder")
     Game.sprite:centerObject("cameraBorder")
 
+    self.treasures:load()
     print("Gameplay state loaded!")
 end
 
@@ -60,19 +69,40 @@ function self:addMoney(money)
     self.money = self.money + money
 end
 
+function self:makeTreasureWindow(treasure)
+    local treasureWindow = self.windows:treasure()
+    treasureWindow:load(self, treasure)
+    table.insert(self.activeWindows, treasureWindow)
+end
+
+function self:rollTreasures()
+    for id, treasure in pairs(self.treasures.treasures) do
+        if type(id) ~= "number" then
+            local chance = treasure.chance or 10
+            local rng = love.math.random(1, chance)
+            if rng == 1 then
+                return treasure
+            end
+        end
+    end
+end
+
+function self:onClick(x, y, button)
+    self.layer:mousepressed(x, y, button)
+    local roll = self:rollTreasures()
+    if roll then
+        self:makeTreasureWindow(roll)
+    end
+end
+
 function self:mousepressed(x, y, button)
     local voidHovered = Game.slab.IsVoidHovered()
     -- print(voidHovered)
     if voidHovered then
         self.pauseButton:mousepressed(x, y, button)
         if not self.pauseButton:isWithinSprite(x, y) then
-             self.layer:mousepressed(x, y, button)
+            self:onClick(x, y, button)
         end
-    end
-
-    if button == 3 then
-        local treasureWindow = self.windows:treasure()
-        table.insert(self.activeWindows, treasureWindow)
     end
 end
 
@@ -88,9 +118,15 @@ function self:update(dt)
 
     -- Update windows
     local removeWindows = {}
-    for i,window in ipairs(self.activeWindows) do
+    local activeWindows = self.activeWindows
+    for i,window in ipairs(activeWindows) do
+        window.index = i
         function window:remove()
-            table.insert(removeWindows, i)
+            table.insert(removeWindows, self.index)
+            print(self.index)
+            for _,window in pairs(activeWindows) do
+                window.index = window.index - 1
+            end
         end
         -- print(bar)
         window:update(Game.slab, dt, i)

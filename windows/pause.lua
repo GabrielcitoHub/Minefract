@@ -1,5 +1,10 @@
 local self = {}
 
+function self:load(state)
+    self.state = state
+    self.music = self.state.music
+end
+
 function self:update(Slab, dt)
     Slab.BeginWindow('pause', {
         Title = Language:get("pauseWindow"),
@@ -17,6 +22,11 @@ function self:update(Slab, dt)
     Slab.Image('soundsCheck', {Path = "assets/images/ui/checkmark.png", Color = self.CheckColor, ReturnOnClick = true})
     if Slab.IsControlClicked() then
         self.CheckButton = not self.CheckButton
+        if self.CheckButton then
+            self.state.soundsEnabled = false
+        else
+            self.state.soundsEnabled = true
+        end
     end
 
     self.CheckColor2 = self.CheckButton2 and {1.0, 1.0, 1.0, 0.0} or {1.0, 1.0, 1.0, 1.0}
@@ -24,6 +34,14 @@ function self:update(Slab, dt)
     Slab.Image('musicCheck', {Path = "assets/images/ui/checkmark.png", Color = self.CheckColor2, ReturnOnClick = true})
     if Slab.IsControlClicked() then
         self.CheckButton2 = not self.CheckButton2
+
+        if self.music then
+            if self.CheckButton2 then
+                self.music:setVolume(0)
+            else
+                self.music:setVolume(1)
+            end
+        end
     end
 
     Slab.SetCursorPos(55, 220)
