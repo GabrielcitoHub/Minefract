@@ -49,6 +49,7 @@ local Hierarchy = {}
 local Radius = 4.0
 
 local function GetInstance(Id)
+---@diagnostic disable-next-line: undefined-global
 	local IdString = type(Id) == 'table' and tostring(IdString) or Id
 
 	if #Hierarchy > 0 then

@@ -441,6 +441,7 @@ function waveObject:calculateBPM()
 
     if occT[i] > occMax then
 
+---@diagnostic disable-next-line: lowercase-global
       occMaxT = i
 
       occMax = occT[i]
@@ -523,7 +524,9 @@ function waveObject:updateBeat(dt)
   self.beat = _beat
   
   if self.onBeat then
+---@diagnostic disable-next-line: missing-parameter
     for i = 1, _elapsedBeats do
+---@diagnostic disable-next-line: missing-parameter
       self.onBeat()
     end
   end

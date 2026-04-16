@@ -120,6 +120,7 @@ function Utility.CopyValues(A, B)
 		return
 	end
 
+---@diagnostic disable-next-line: redundant-parameter
 	for K, V in pairs(A, B) do
 		local Other = B[K]
 

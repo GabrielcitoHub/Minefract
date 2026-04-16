@@ -4,7 +4,7 @@ spritemanager.cache = {}
 spritemanager.placeholderImage = love.graphics.newImage("assets/images/placeholders/PLACEHOLDER.png")
 spritemanager.placeholderImage:setFilter("nearest", "nearest")
 
----@diagnostic disable-next-line: different-requires
+---@diagnostic disable-next-line: different-requires, undefined-field
 local json = _G.json or require "libs/json"
 
 -- I made this!
@@ -262,6 +262,7 @@ function spritemanager:addLuaAnimation(tag, animTag, animname, animtype, extra)
         spr.cache = spr.cache or {}
         spr.cache.xml = spr.cache.xml or {}
         local xmlData = spr.cache.xml.data or love.filesystem.read(xmlPath)
+---@diagnostic disable-next-line: undefined-global
         local anim = Utils:parseXMLAnimation(xmlData, animname) -- You can make this loader
         if not anim then return end
 

@@ -27,6 +27,15 @@ function self:update(Slab, dt, windows)
         ScaleY = imageScale * 1.1,
     })
 
+    local x = 170
+    local y = 11
+
+    Slab.SetCursorPos(x, y)
+    Slab.Textf(self.treasure.name)
+
+    Slab.SetCursorPos(x, nil)
+    Slab.Textf(self.treasure.desc)
+
     local buttonOptions = {Color = {0, 0, 0, 0}}
     Slab.SetCursorPos(218, 92)
     if Slab.Button(Language:get("donate"), buttonOptions) then
