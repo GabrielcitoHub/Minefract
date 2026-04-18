@@ -1,5 +1,5 @@
 local self = {
-    defaultLanguagePath = "data.languages.español",
+    defaultLanguagePath = "data.languages.spanish",
     languagesPath = "data/languages",
 }
 

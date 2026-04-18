@@ -16,8 +16,8 @@ function self:update(Slab, dt)
         NoOutline = false,
     })
 
-    local menus = {"Treasures", "Tools"}
-    self.selected = self.selected or "Treasures"
+    local menus = {Language:get("treasures"), Language:get("tools")}
+    self.selected = self.selected or menus[1]
 
     if Slab.BeginComboBox('selectedInventoryMenu', {Selected = self.selected}) then
         for I, V in ipairs(menus) do
@@ -29,7 +29,7 @@ function self:update(Slab, dt)
         Slab.EndComboBox()
     end
 
-    if self.selected == "Treasures" then
+    if self.selected == Language:get("treasures") then
         local treasures = self.state.inventory["treasures"]
         if treasures then
             if #treasures <= 0 then
@@ -177,7 +177,7 @@ function self:update(Slab, dt)
                 end
             end
         end
-    elseif self.selected == "Tools" then
+    elseif self.selected == Language:get("tools") then
         local tools = self.state.inventory["tools"]
         if tools then
             if #tools <= 0 then

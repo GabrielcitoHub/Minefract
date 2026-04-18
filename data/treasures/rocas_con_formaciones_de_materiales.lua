@@ -3,7 +3,7 @@ return {
         name = "Crystal clubster",
         desc = "A combination of various ores fused into one."
     },
-    ["español"] = {
+    spanish = {
         name = "Rocas con formaciones de materiales",
         desc = "Algunos minerales brillantes."
     },

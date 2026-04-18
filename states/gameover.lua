@@ -10,8 +10,9 @@ function self:load(extra)
     self.menuButton.enabled = true
 end
 
+local state = self
 function self.menuButton:onPressed()
-    self.extra.music:stop()
+    state.extra.music:stop()
 end
 
 function self:mousepressed(x, y, button)

@@ -3,7 +3,7 @@ return {
         name = "Quartz crystal",
         desc = "A sturdy (and radioactivee) rock."
     },
-    ["español"] = {
+    spanish = {
         name = "Cristal de cuarzo",
         desc = "Una dura (y radioactiva) roca."
     },

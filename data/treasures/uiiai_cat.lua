@@ -3,7 +3,7 @@ return {
         name = "UIIAI Cat",
         desc = "A peculiar cat."
     },
-    ["español"] = {
+    spanish = {
         name = "Gato UIIAI",
         desc = "Un gato peculiar."
     },

@@ -3,7 +3,7 @@ return {
         name = "Stone totem",
         desc = "A totem from a forgotten civilisation."
     },
-    ["español"] = {
+    spanish = {
         name = "Totem de piedra antiguo",
         desc = "Un totem de una civilisacion olvidada."
     },

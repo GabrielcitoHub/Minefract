@@ -3,7 +3,7 @@ return {
         name = "Inscript of Atlantis",
         desc = "A recovered stone from the atlantis."
     },
-    ["español"] = {
+    spanish = {
         name = "Tabla tallada de antigua civilisacion",
         desc = "Tiene unas inscripciones misteriosas."
     },

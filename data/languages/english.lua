@@ -37,4 +37,6 @@ return {
     thanksForPlaying = "Thanks for playing",
     currentProfundity = "Current profundity",
     layer = "Layer",
+    treasures = "Treasures",
+    tools = "Tools",
 }

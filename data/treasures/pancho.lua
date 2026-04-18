@@ -3,7 +3,7 @@ return {
         name = "Hot-dog",
         desc = "An ordinary hot-dog."
     },
-    ["español"] = {
+    spanish = {
         name = "Pancho",
         desc = "Un pancho ordinario."
     },

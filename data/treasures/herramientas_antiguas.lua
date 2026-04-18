@@ -3,7 +3,7 @@ return {
         name = "Old tools",
         desc = "Some fragile mining tools, they don't work for mining."
     },
-    ["español"] = {
+    spanish = {
         name = "Herramientas antiguas",
         desc = "Unas herramientas fragiles, no sirven para minar."
     },

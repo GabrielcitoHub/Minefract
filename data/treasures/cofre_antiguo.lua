@@ -3,7 +3,7 @@ return {
         name = "Old chest",
         desc = "An rusty container, who knows what's inside."
     },
-    ["español"] = {
+    spanish = {
         name = "Cofre antiguo",
         desc = "Un contenedor viejo, quien sabe que hay ahi."
     },

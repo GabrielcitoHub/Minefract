@@ -20,7 +20,7 @@ end
 
 function self:load(state)
     self.state = state
-    Game.sprite:makeLuaSprite(self.tag, self.imagesPath .. "/español")
+    Game.sprite:makeLuaSprite(self.tag, self.imagesPath .. "/spanish")
     local spr = Game.sprite:tagToSprite(self.tag)
     spr.image:setFilter("nearest", "nearest")
     Game.sprite:setObjectScale(self.tag, self.scale, self.scale)

@@ -36,11 +36,6 @@ self.activeWindows = {}
 self.activeSpecialWindows = {}
 
 function self:load()
-    if self.music then
-        self.music:setLooping(true)
-        self.music:play()
-    end
-
     self.windows.pause:load(self)
     self.windows.inventory:load(self)
     self.windows.shop:load(self)
@@ -79,6 +74,11 @@ function self:load()
 
     self.treasures:load()
     print("Gameplay state loaded!")
+
+    if self.music then
+        self.music:setLooping(true)
+        self.music:play()
+    end
 
     -- Debug
     -- self:addScore(-100)

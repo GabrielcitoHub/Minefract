@@ -37,4 +37,6 @@ return {
     thanksForPlaying = "Gracias por jugar",
     currentProfundity = "Profundidad actual",
     layer = "Capa",
+    treasures = "Tesoros",
+    tools = "Herramientas",
 }

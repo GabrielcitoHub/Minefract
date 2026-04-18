@@ -3,7 +3,7 @@ return {
         name = "[PLACEHOLDER]",
         desc = "[PLACEHOLDER]"
     },
-    ["español"] = {
+    spanish = {
         name = "Craneo fosil de dinosaurio",
         desc = "Un craneo fosil de dinosaurio real, wow."
     },

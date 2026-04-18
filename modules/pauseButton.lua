@@ -23,6 +23,10 @@ function self:load(state)
     self.menuButton:load(self.state)
 end
 
+function self.menuButton:onPressed()
+    self.state.music:stop()
+end
+
 function self:isWithinSprite(x, y)
     local spr = self.spr
     if not spr then return end

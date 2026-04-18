@@ -3,7 +3,7 @@ return {
         name = "[PLACEHOLDER]",
         desc = "[PLACEHOLDER]"
     },
-    ["español"] = {
+    spanish = {
         name = "Alhajero antiguo",
         desc = "Un alhajero antiguo hecho de plata."
     },

@@ -3,7 +3,7 @@ return {
         name = "Golden ingot",
         desc = "Some massive golden bars."
     },
-    ["español"] = {
+    spanish = {
         name = "Lingote de oro",
         desc = "Unas barras de oro massiso."
     },

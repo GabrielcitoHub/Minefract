@@ -3,7 +3,7 @@ return {
         name = "Old steel ring",
         desc = "An old steel ring, it looks real."
     },
-    ["español"] = {
+    spanish = {
         name = "Anillo de plata antiguo",
         desc = "Un anillo de plata antiguo, se ve real."
     },
