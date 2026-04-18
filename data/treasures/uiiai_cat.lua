@@ -8,5 +8,5 @@ return {
         desc = "Un gato peculiar."
     },
     price = 1000,
-    chance = 30000,
+    chance = 300000,
 }

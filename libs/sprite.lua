@@ -31,10 +31,16 @@ function spritemanager:setCamera(cam)
     self.camera = cam
 end
 
-function spritemanager:tagToSprite(tag)
+function spritemanager:tagToSprite(tag, options)
+    options = options or {}
     local spr = self.sprites[tag]
-    if not spr then 
-        error("Sprite with tag \"" .. tostring(tag) .. "\" not found")
+    if not spr then
+        local text = "Sprite with tag \"" .. tostring(tag) .. "\" not found"
+        if not options.noError then
+            error(text)
+        else
+            print(text)
+        end
     end
     return spr
 end
@@ -84,7 +90,9 @@ end
 -- First parameter must be the object tag
 -- Second parameter must be the frame name you want to play
 function spritemanager:playFrame(tag, framename)
-    local spr = self:tagToSprite(tag)
+    local spr = self:tagToSprite(tag, {noError = true})
+    if not spr then return end
+
     local d = Game.debug
 
     if not spr.frames then
@@ -445,7 +453,7 @@ end
 -- Gets a property from a sprite object
 -- First parameter must be the object tag
 function spritemanager:getProperty(tag,property)
-    local spr = self:tagToSprite(tag)
+    local spr = self:tagToSprite(tag, {noError = true})
     if not spr then
         -- That is... not a real sprite...
         return
@@ -489,8 +497,10 @@ end
 
 function spritemanager:getScaledSize(spr)
     if type(spr) == "string" then
-        spr = self:tagToSprite(spr)
+        spr = self:tagToSprite(spr, {noError = true})
     end
+
+    if not spr then return end
 
     local scaledWidth = spr["image"]:getWidth() * spr.sx
     local scaledHeight = spr["image"]:getHeight() * spr.sy
@@ -532,10 +542,13 @@ function spritemanager:drawSprite(tag)
     local cam = self.camera
 
     if type(tag) == "string" then
-        tag = self:tagToSprite(tag)
+        tag = self:tagToSprite(tag, {noError = true})
     end
 
+    if not tag then return end
     local spr = tag.sprite or tag
+    if not spr or type(spr) == "string" then return end
+
     local layer = string.lower(spr.layer)
     if spr.anims then
         for _,anim in pairs(spr.anims) do

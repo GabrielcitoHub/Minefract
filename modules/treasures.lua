@@ -14,28 +14,45 @@ function self:loadTreasures()
     local path = string.gsub(self.treasuresPath, "/", ".")
 
     for _,file in pairs(love.filesystem.getDirectoryItems(self.treasuresPath)) do
-        print(file)
+        -- print(file)
         local filename = string.sub(file, 1, -5)
         local treasure = require(path .. "." .. filename)
-        print(Language:getLanguageName())
+        -- print(Language:getLanguageName())
         local data = treasure[Language:getLanguageName()] or {}
         local name = data.name or "???"
         local id = data.id or filename
-        local desc = data.desc or "This item has no description."
+        local desc = data.desc or Language:get("noTreasureDesc")
         local imagePath = self.treasuresImagesPath .. "/"
         local extPath = "." .. self.imageExt
-        local imagePath1 = data.image and imagePath .. data.image
-        local imagePath2 = id and imagePath .. id .. extPath
+        local tImage = treasure.image
+        local image = tImage
 
-        local image
-        if imagePath1 and love.filesystem.getInfo(imagePath1) then
-            image = love.graphics.newImage(imagePath1)
+        local imagePath1
+        local imagePath2 = id and imagePath .. id .. extPath
+        local imagePath3
+
+        local acceptableImage = image and type(image) == "string"
+
+        if acceptableImage then
+            imagePath1 = imagePath .. image
+            imagePath3 = imagePath .. image .. extPath
+        end
+        
+        if acceptableImage then 
+            if imagePath1 and love.filesystem.getInfo(imagePath1) then
+                image = love.graphics.newImage(imagePath1)
+            elseif imagePath3 and love.filesystem.getInfo(imagePath3) then
+                image = love.graphics.newImage(imagePath3)
+            end
         elseif imagePath2 and love.filesystem.getInfo(imagePath2) then
-            image =love.graphics.newImage(imagePath2)
+            image = love.graphics.newImage(imagePath2)
         end
 
-        data.image = image
-        print(name, desc, image)
+        treasure.image = image
+        treasure.price = treasure.price or 100
+        treasure.donateScore = treasure.donateScore or 10
+        treasure.sellScore = treasure.sellScore or -10
+        -- print(name, desc, image)
 
         data.id = id
         data.name = name
@@ -44,7 +61,6 @@ function self:loadTreasures()
         local languagesNames = Language:getLanguageNames()
         for key,value in pairs(treasure) do
             if not languagesNames[key] then
-                print(key, value)
                 data[key] = value
             end
         end
